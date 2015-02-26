@@ -1,0 +1,25 @@
+#video {
+  width: 300px;
+  height: 200px;
+  display: none;
+}
+
+canvas {
+  width: 300px;
+  height: 200px;
+  display: none;
+}
+
+pre {
+  margin: 0px;
+}
+
+body {
+  margin: 0px;
+  background: black;
+  color: #00CC00;
+}
+
+body {
+
+}

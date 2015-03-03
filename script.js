@@ -5,30 +5,46 @@ window.onload = function() {
 
 function start() {
 
+
+  console.log(navigator.mozGetUserMedia);
+
   navigator.getUserMedia = (navigator.getUserMedia || 
                             navigator.webkitGetUserMedia || 
                             navigator.mozGetUserMedia || 
                             navigator.msGetUserMedia);
-     if (navigator.getUserMedia) {
-        navigator.getUserMedia(
-           {
-              video:true,
-              audio:false
-           },        
-           function(stream) {
-            window.vid.src = window.URL.createObjectURL(stream);
-           },
-           function(error) {
-            console.log(error);
-           }
-        );
-     }
-     else {
-        alert('Sorry, the browser you are using doesn\'t support getUserMedia');
-        return;
-    }
-    window.vid.play();
-    draw();
+
+  navigator.getUserMedia = navigator.webkitGetUserMedia;
+
+  if (navigator.getUserMedia) {
+    navigator.getUserMedia(
+       {
+          video:true,
+          audio:false
+       },        
+       function(stream) {
+        messageHide();
+        window.vid.src = window.URL.createObjectURL(stream);
+        window.vid.play();
+        draw();
+       },
+       function(error) {
+        messageShow('Some error occured. You either not allow usage of your camera, or your browser is not supported :(');
+        console.log(error);
+       }
+    );
+  }else {
+    messageShow('Sorry, the browser you are using doesn\'t support webkitGetUserMedia');
+    return;
+  }
+}
+
+function messageShow(text) {
+  document.getElementById("h1").style.display = "block";
+  document.getElementById("h1").textContent = text;
+}
+
+function messageHide() {
+  document.getElementById("h1").style.display = "none";
 }
 
 function draw() {
